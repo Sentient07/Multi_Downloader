@@ -1,0 +1,6 @@
+DESCRIPTION
+This is a downloader in python which I have created to download files at a greater speed(7 times the original speed) while I am in Local Area Network(LAN, in my college). For now this is using particular sets of class 'A' IP address. In future updates I will generalise this and make it more efficient.
+
+USAGE:
+sudo python sdm-copy.py
+
