@@ -10,11 +10,13 @@ def authentication(user_id,passwd,ips):
  buffer1 = cStringIO.StringIO()
  c = pycurl.Curl() #object c is assigned the curl object
  c.setopt(c.URL, "https://10.1.0.10:8090/httpclient.html") 
- c.setopt(c.WRITEFUNCTION, buf.write)  #writes the out after running this code into that string buffer
+ c.setopt(c.WRITEFUNCTION, buffer1.write)  #writes the out after running this code into that string buffer
  c.setopt(c.CONNECTTIMEOUT, 30)
  c.setopt(c.INTERFACE, ips) #sets the interface i.e IP address to bind the login
  c.setopt(c.TIMEOUT, 150)
  c.setopt(c.MAXREDIRS, 10)
+ c.setopt(c.SSL_VERIFYPEER, 0)   
+ c.setopt(c.SSL_VERIFYHOST, 0)
  c.setopt(c.POSTFIELDS, 'username='+user_id+'&password='+passwd+'&mode=191')  #sets to the login field password and username
  c.setopt(c.COOKIEFILE, 'cookies.txt')
  c.setopt(c.USERAGENT ,"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:26.0) Gecko/20100101 Firefox/26.0")  #Setting the browser
@@ -22,7 +24,7 @@ def authentication(user_id,passwd,ips):
  c.setopt(c.FAILONERROR, True) 
  c.setopt(c.VERBOSE, True) # sets into verbose mode
  c.perform()
- print buf.getvalue()
+ print buffer1.getvalue()
  buffer1.close()
  key = "Authenicated"
  return key
@@ -30,7 +32,6 @@ def downloads(ips,url,ri,rf):
  buf1 = cStringIO.StringIO()
  c1 = pycurl.Curl() #see line 10
  c1.setopt(c1.INTERFACE, ips) #selects interface
- c1.setopt(c1.USERAGENT ,"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:26.0) Gecko/20100101 Firefox/26.0 ") #see line 11
  c1.setopt(c1.URL , url)
  c1.setopt(c1.RANGE,str( ri) +  "-" + str(rf)) #sets the range
  c1.setopt(c1.NOSIGNAL, 1)
